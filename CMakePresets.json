@@ -20,7 +20,7 @@
         },
         {
             "name": "devel",
-            "displayName": "Debug Config",
+            "displayName": "Unit testing",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
