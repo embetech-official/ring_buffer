@@ -8,19 +8,8 @@
     "include": [],
     "configurePresets": [
         {
-            "name": "default",
-            "displayName": "Default Config",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CONFIG_RING_BUFFER_16_ENABLE": "ON",
-                "CONFIG_RING_BUFFER_BUILD_TESTS": "OFF"
-            }
-        },
-        {
-            "name": "devel",
-            "displayName": "Unit testing",
+            "name": "testing",
+            "displayName": "Testing",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
@@ -28,22 +17,34 @@
                 "CONFIG_RING_BUFFER_16_ENABLE": "ON",
                 "CONFIG_RING_BUFFER_BUILD_TESTS": "ON"
             }
+        },
+        {
+            "name": "release",
+            "displayName": "Release",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CONFIG_RING_BUFFER_16_ENABLE": "ON",
+                "CONFIG_RING_BUFFER_BUILD_TESTS": "OFF"
+            }
         }
     ],
     "buildPresets": [
         {
-            "name": "default",
-            "configurePreset": "default"
+            "name": "testing",
+            "configurePreset": "testing"
         },
         {
-            "name": "devel",
-            "configurePreset": "devel"
+            "name": "release",
+            "configurePreset": "release"
         }
     ],
     "testPresets": [
         {
-            "name": "default",
-            "configurePreset": "devel",
+            "name": "testing",
+            "configurePreset": "testing",
             "output": {
                 "outputOnFailure": true
             },
