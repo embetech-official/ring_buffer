@@ -10,4 +10,4 @@ if (CONFIG_RING_BUFFER_16_ENABLE)
   target_sources(ring_buffer PRIVATE ring_buffer_16bit.c)
 endif ()
 
-include(${CMAKE_SOURCE_DIR}/cmake/component-install.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/component-install.cmake)
