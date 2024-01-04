@@ -34,11 +34,17 @@
     "buildPresets": [
         {
             "name": "testing",
-            "configurePreset": "testing"
+            "configurePreset": "testing",
+            "targets": [
+                "ring_buffer_ut"
+            ]
         },
         {
             "name": "release",
-            "configurePreset": "release"
+            "configurePreset": "release",
+            "targets": [
+                "ring_buffer"
+            ]
         }
     ],
     "testPresets": [
