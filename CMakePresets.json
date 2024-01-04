@@ -15,10 +15,7 @@
             "binaryDir": "${sourceDir}/build",
             "installDir": "${sourceDir}/release",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "CONFIG_RING_BUFFER_16_ENABLE": "ON",
-                "CONFIG_RING_BUFFER_BUILD_TESTS": "ON",
-                "CONFIG_RING_BUFFER_ENABLE_INSTALL_TARGET": "ON"
+                "CONFIG_RING_BUFFER_16_ENABLE": "ON"
             }
         }
     ],
