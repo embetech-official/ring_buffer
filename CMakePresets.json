@@ -8,40 +8,30 @@
     "include": [],
     "configurePresets": [
         {
-            "name": "testing",
+            "name": "default",
             "displayName": "Testing",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CONFIG_RING_BUFFER_16_ENABLE": "ON",
-                "CONFIG_RING_BUFFER_BUILD_TESTS": "ON"
-            }
-        },
-        {
-            "name": "release",
-            "displayName": "Release",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/${presetName}",
+            "binaryDir": "${sourceDir}/build",
             "installDir": "${sourceDir}/release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 "CONFIG_RING_BUFFER_16_ENABLE": "ON",
-                "CONFIG_RING_BUFFER_BUILD_TESTS": "OFF"
+                "CONFIG_RING_BUFFER_BUILD_TESTS": "ON",
+                "CONFIG_RING_BUFFER_ENABLE_INSTALL_TARGET": "ON"
             }
         }
     ],
     "buildPresets": [
         {
             "name": "testing",
-            "configurePreset": "testing",
+            "configurePreset": "default",
             "targets": [
                 "ring_buffer_ut"
             ]
         },
         {
             "name": "release",
-            "configurePreset": "release",
+            "configurePreset": "default",
             "targets": [
                 "ring_buffer",
                 "install"
@@ -51,7 +41,7 @@
     "testPresets": [
         {
             "name": "testing",
-            "configurePreset": "testing",
+            "configurePreset": "default",
             "output": {
                 "outputOnFailure": true
             },
