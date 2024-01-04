@@ -43,7 +43,8 @@
             "name": "release",
             "configurePreset": "release",
             "targets": [
-                "ring_buffer"
+                "ring_buffer",
+                "install"
             ]
         }
     ],
