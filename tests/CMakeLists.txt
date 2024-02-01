@@ -1,6 +1,5 @@
-project(ring_buffer_ut LANGUAGES CXX C)
+project(ring_buffer_ut)
 
-cmake_policy(SET CMP0135 NEW)
 
 include(FetchContent)
 

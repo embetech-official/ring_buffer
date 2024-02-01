@@ -21,11 +21,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 
-/** @addtogroup DRIVERS
- * @{
- */
-
-/** @defgroup RING_BUFFER This module delivers a basic, general-purpose ring buffer.
+/** @defgroup ring_buffer This module delivers a basic, general-purpose ring buffer.
  * @{
  */
 
@@ -114,7 +110,6 @@ bool RingBuffer_PutChar(RingBuffer *ringBuffer, uint8_t c);
 bool RingBuffer_GetChar(RingBuffer *ringBuffer, uint8_t *c);
 
 /**
- *   @}
  * @}
  */
 
