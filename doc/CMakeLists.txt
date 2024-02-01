@@ -14,8 +14,8 @@ set(DOXYGEN_JAVADOC_AUTOBRIEF YES)
 set(DOXYGEN_VERBATIM_HEADERS NO)
 set(DOXYGEN_HTML_COLORSTYLE DARK)
 set(DOXYGEN_GENERATE_LATEX NO)
-set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/ring_buffer_documentation)
-set(DOXYGEN_GENERATE_TAGFILE ${DOXYGEN_OUTPUT_DIRECTORY}/html/embetech_ring_buffer.tag)
+set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+set(DOXYGEN_GENERATE_TAGFILE ${DOXYGEN_OUTPUT_DIRECTORY}/html/ring_buffer.tag)
 set(DOXYGEN_ALIASES
     [[purpose=@par Purpose:]] [[license=@par License:]] [[compiler=@par Compiler:]]
     [[ hardware=@par Hardware:]] [[comments=@par Comments:]] [[doc=@par Documented using:]]
