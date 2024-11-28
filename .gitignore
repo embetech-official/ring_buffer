@@ -1,4 +1,5 @@
 .vscode
 build
 release
+doc/**/
 CMakeUserPresets.json
