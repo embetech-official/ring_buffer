@@ -26,6 +26,6 @@ set(DOXYGEN_ALIASES
 set(DOXYGEN_WARN_AS_ERROR YES)
 
 doxygen_add_docs(
-  ring_buffer_doc ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src/include/embetech
+  ring_buffer_doc ALL ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src/include/embetech
   COMMENT "Generate documentation"
 )
