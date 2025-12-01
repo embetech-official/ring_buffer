@@ -1,15 +1,4 @@
-/**
-@file
-@license   $License$
-@copyright $Copyright$
-@version   $Revision$
-@purpose   General-purpose ring buffer
-@brief     Ring Buffer implementation
-
-This module implements a basic, general-purpose ring buffer.
-*/
-
-#include "ring_buffer_16bit.h"
+#include "embetech/ring_buffer_16bit.h"
 
 bool RingBuffer16Bit_Init(RingBuffer16Bit *ringBuffer, uint16_t *dataBuffer, size_t dataBufferSize) {
   if((ringBuffer) && (dataBuffer) && (dataBufferSize > 0)) {

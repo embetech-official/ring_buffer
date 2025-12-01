@@ -1,22 +1,22 @@
 /**
-@file
-@license   $License$
-@copyright $Copyright$
-@version   $Revision$
-@purpose   General-purpose ring buffer
-@brief     Ring Buffer API
-
-This module implements a basic, general-purpose ring buffer.
-*/
+ * @file
+ * @license   ${PROJECT_LICENSE}
+ * @copyright ${PROJECT_COPYRIGHT}
+ * @version   ${PROJECT_VERSION}
+ * @purpose   General-purpose ring buffer
+ * @brief     Ring Buffer API
+ *
+ * This module implements a basic, general-purpose ring buffer.
+ */
 
 #ifndef RING_BUFFER_H_
 #define RING_BUFFER_H_
-#pragma once
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#include <embetech/semantic_version.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -108,6 +108,20 @@ bool RingBuffer_PutChar(RingBuffer *ringBuffer, uint8_t c);
  * @return true if the character was pulled out successfully, false otherwise
  */
 bool RingBuffer_GetChar(RingBuffer *ringBuffer, uint8_t *c);
+
+/**
+ * @brief Get library version as a SemanticVersion structure.
+ *
+ * @return SemanticVersion value representing the library version.
+ */
+SemanticVersion RingBuffer_GetVersion(void);
+
+/**
+ * @brief Get library version as a NUL-terminated string.
+ *
+ * @return Pointer to a read-only, statically-allocated string in semantic version format (e.g., "1.2.3"). Must not be freed or modified.
+ */
+char const *RingBuffer_GetVersionString(void);
 
 /**
  * @}

@@ -20,18 +20,3 @@ markup:
   fence_pattern: "^\\s*([`~]{3}[`~]*)(.*)$"
   ruler_pattern: "^\\s*[^\\w\\s]{3}.*[^\\w\\s]{3}$"
   enable_markup: true
-
-parse:
-  additional_commands:
-    fetchcontentext_declare:
-      spelling: FetchContentExt_Declare
-      pargs: 1
-      flags: NO_TOKEN
-      kwargs:
-        GITHUB_REPOSITORY: 1
-        GIT_REPOSITORY: 1
-        GIT_TAG: 1
-        GIT_RELEASE: 1
-        URL: 1
-        TOKEN: 1
-        ASSET: 1

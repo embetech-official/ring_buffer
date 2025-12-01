@@ -1,5 +1,5 @@
 .vscode
+**/.cache
 build
-release
-doc/**/
+install
 CMakeUserPresets.json

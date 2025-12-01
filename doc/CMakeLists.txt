@@ -1,5 +1,8 @@
 include(FindDoxygen)
-find_package(Doxygen REQUIRED)
+if (NOT DOXYGEN_FOUND)
+  message(STATUS "Doxygen not found, documentation will not be generated")
+  return()
+endif ()
 
 set(DOXYGEN_PROJECT_NAME "EMBETECH Ring Buffer")
 set(DOXYGEN_OPTIMIZE_OUTPUT_FOR_C YES)

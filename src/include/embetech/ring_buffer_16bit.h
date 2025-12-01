@@ -1,17 +1,16 @@
 /**
-@file
-@license   $License$
-@copyright $Copyright$
-@version   $Revision$
-@purpose   General-purpose ring buffer
-@brief     Ring Buffer API
-
-This module implements a basic, general-purpose ring buffer.
-*/
+ * @file
+ * @license   ${PROJECT_LICENSE}
+ * @copyright ${PROJECT_COPYRIGHT}
+ * @version   ${PROJECT_VERSION}
+ * @purpose   General-purpose ring buffer
+ * @brief     Ring Buffer API
+ *
+ * This module implements a basic, general-purpose ring buffer.
+ */
 
 #ifndef RING_BUFFER_16BIT_H_
 #define RING_BUFFER_16BIT_H_
-#pragma once
 
 #ifdef __cplusplus
 extern "C" {
