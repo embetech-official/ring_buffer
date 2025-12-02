@@ -37,7 +37,7 @@ jobs:
       - uses: lukka/run-cmake@v10
         with:
           configurePreset: ${{ env.preset }}
-          configurePresetAdditionalArgs: '["-DEMBENET_UDP_TESTS=0", "-DEMBENET_UDP_EXAMPLES=0", "-DEMBENET_UDP_DOC=0", "-DEMBENET_UDP_MOCK=0"]'
+          configurePresetAdditionalArgs: '["-DRING_BUFFER_TESTS=0", "-DRING_BUFFER_DOC=0", "-DRING_BUFFER_EXAMPLES=0"]'
           buildPreset: ${{ env.preset }}::install
 
       - name: Upload library install directory
