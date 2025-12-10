@@ -22,9 +22,9 @@ bool RingBuffer_Clear(RingBuffer *ringBuffer) {
   return true;
 }
 
-bool RingBuffer_IsEmpty(RingBuffer const *ringBuffer) { return (NULL == ringBuffer) || (0U == ringBuffer->count); }
-
 size_t RingBuffer_GetLen(RingBuffer const *ringBuffer) { return (ringBuffer != NULL) ? ringBuffer->count : 0U; }
+
+bool RingBuffer_IsEmpty(RingBuffer const *ringBuffer) { return (0U == RingBuffer_GetLen(ringBuffer)); }
 
 size_t RingBuffer_GetCapacity(RingBuffer const *ringBuffer) { return (ringBuffer != NULL) ? ringBuffer->dataBufferSize : 0U; }
 
@@ -47,7 +47,7 @@ bool RingBuffer_PutChar(RingBuffer *ringBuffer, uint8_t data) {
 }
 
 bool RingBuffer_GetChar(RingBuffer *ringBuffer, uint8_t *data_buffer) {
-  if(RingBuffer_IsEmpty(ringBuffer)) {
+  if(RingBuffer_IsEmpty(ringBuffer) || (NULL == data_buffer)) {
     return false;
   }
 
