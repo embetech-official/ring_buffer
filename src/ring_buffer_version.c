@@ -1,18 +1,10 @@
 #include "embetech/ring_buffer.h"
+#include <assert.h>
 
-#ifndef RING_BUFFER_VERSION_MAJOR
-#define RING_BUFFER_VERSION_MAJOR 0
-#define RING_BUFFER_VERSION_MINOR 0
-#define RING_BUFFER_VERSION_PATCH 0
-#define RING_BUFFER_VERSION_ID 0
-#define RING_BUFFER_VERSION "0.0.0-0"
+#ifndef RING_BUFFER_VERSION
+#error "RING_BUFFER_VERSION is not defined"
 #endif
 
-SemanticVersion RingBuffer_GetVersion(void) {
-  return (SemanticVersion){.major = (RING_BUFFER_VERSION_MAJOR),
-                           .minor = (RING_BUFFER_VERSION_MINOR),
-                           .patch = (RING_BUFFER_VERSION_PATCH),
-                           .id = (RING_BUFFER_VERSION_ID)};
-}
+static_assert(sizeof(RING_BUFFER_VERSION) <= 64, "RING_BUFFER_VERSION too long"); // NOLINT(readability-magic-numbers) - 64 bytes max
 
 char const *RingBuffer_GetVersionString(void) { return (RING_BUFFER_VERSION); }

@@ -1,27 +1,24 @@
 # Ring Buffer
 
-[![C++ Unit Tests](https://github.com/embetech-official/ring_buffer/actions/workflows/cpp_unit_tests.yml/badge.svg)](https://github.com/embetech-official/ring_buffer/actions/workflows/cpp_unit_tests.yml)
+[![CI Tests](https://github.com/embetech-official/ring_buffer/actions/workflows/on_push.yml/badge.svg)](https://github.com/embetech-official/ring_buffer/actions/workflows/on_push.yml)
+![GitHub License](https://img.shields.io/github/license/embetech-official/ring_buffer)
+![GitHub Release](https://img.shields.io/github/v/release/embetech-official/ring_buffer)
 
 ## Overview
+
 Ring Buffer is a library providing circular buffer data structure
 
-## Installation
-The easiest way is to use built-in CMake FetchContent:
+## Quick Start
+
+The easiest way to fetch this component is to use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake).
+In your CMakeLists.txt add:
 
 ```cmake
-include(FetchContent)
-FetchContent_Declare(
-    ring_buffer
-    GIT_REPOSITORY https://github.com/embetech-official/ring_buffer
-    GIT_TAG v1.0.0
-)
+  CPMAddPackage("gh:embetech-official/ring_buffer@1")
+```
 
-FetchContent_MakeAvailable(ring_buffer)
+Then add link dependency
 
-# ...
-
+```cmake
 target_link_libraries(<your target> PRIVATE embetech::ring_buffer)
-``````
-
-## Configuration
-- `CONFIG_RING_BUFFER_16_ENABLE` - Makes variant with 16-bit element available
+```

@@ -1,79 +1,59 @@
 #include "embetech/ring_buffer.h"
 
-bool RingBuffer_Init(RingBuffer *ringBuffer, uint8_t *dataBuffer, size_t dataBufferSize) {
-  if((ringBuffer) && (dataBuffer) && (dataBufferSize > 0)) {
-    ringBuffer->dataBuffer = dataBuffer;
-    ringBuffer->dataBufferSize = dataBufferSize;
-    ringBuffer->count = 0;
-    ringBuffer->head = dataBuffer;
-    ringBuffer->tail = dataBuffer;
-    return true;
+bool RingBuffer_Init(RingBuffer *instance, uint8_t *dataBuffer, size_t dataBufferSize) {
+  if((NULL == instance) || (NULL == dataBuffer) || (0 == dataBufferSize)) {
+    return false;
   }
-
-  return false;
-}
-
-bool RingBuffer_Clear(RingBuffer *ringBuffer) {
-  if(ringBuffer) {
-    ringBuffer->count = 0;
-    ringBuffer->head = ringBuffer->dataBuffer;
-    ringBuffer->tail = ringBuffer->dataBuffer;
-    return true;
-  }
-  return false;
-}
-
-bool RingBuffer_IsEmpty(RingBuffer const *ringBuffer) {
-  if(ringBuffer) {
-    return (ringBuffer->count == 0);
-  }
-
+  instance->dataBuffer = dataBuffer;
+  instance->dataBufferSize = dataBufferSize;
+  instance->count = 0;
+  instance->head = dataBuffer;
+  instance->tail = dataBuffer;
   return true;
 }
 
-size_t RingBuffer_GetLen(RingBuffer const *ringBuffer) {
-  if(ringBuffer) {
-    return ringBuffer->count;
+bool RingBuffer_Clear(RingBuffer *instance) {
+  if(NULL == instance) {
+    return false;
   }
-  return 0;
+  instance->count = 0;
+  instance->head = instance->dataBuffer;
+  instance->tail = instance->dataBuffer;
+  return true;
 }
 
-size_t RingBuffer_GetCapacity(RingBuffer const *ringBuffer) {
-  if(ringBuffer) {
-    return ringBuffer->dataBufferSize;
+size_t RingBuffer_GetLen(RingBuffer const *instance) { return (instance != NULL) ? instance->count : 0U; }
+
+bool RingBuffer_IsEmpty(RingBuffer const *instance) { return (0U == RingBuffer_GetLen(instance)); }
+
+size_t RingBuffer_GetCapacity(RingBuffer const *instance) { return (instance != NULL) ? instance->dataBufferSize : 0U; }
+
+size_t RingBuffer_GetSpace(RingBuffer const *instance) { return (instance != NULL) ? (size_t)(instance->dataBufferSize - instance->count) : 0U; }
+
+bool RingBuffer_PutChar(RingBuffer *instance, uint8_t data) {
+  if(0 == RingBuffer_GetSpace(instance)) {
+    return false;
   }
-  return 0;
+
+  *instance->head = data;
+  ++instance->count;
+  ++instance->head;
+  if(instance->head >= instance->dataBuffer + instance->dataBufferSize) {
+    instance->head = instance->dataBuffer;
+  }
+  return true;
 }
 
-size_t RingBuffer_GetSpace(RingBuffer const *ringBuffer) {
-  if(ringBuffer) {
-    return ringBuffer->dataBufferSize - ringBuffer->count;
+bool RingBuffer_GetChar(RingBuffer *instance, uint8_t *readData) {
+  if(RingBuffer_IsEmpty(instance) || (NULL == readData)) {
+    return false;
   }
-  return 0;
-}
 
-bool RingBuffer_PutChar(RingBuffer *ringBuffer, uint8_t c) {
-  if((ringBuffer) && (ringBuffer->count < ringBuffer->dataBufferSize)) {
-    *ringBuffer->head = c;
-    ringBuffer->count++;
-    ringBuffer->head++;
-    if(ringBuffer->head >= ringBuffer->dataBuffer + ringBuffer->dataBufferSize) {
-      ringBuffer->head = ringBuffer->dataBuffer;
-    }
-    return true;
+  *readData = *instance->tail;
+  instance->count--;
+  instance->tail++;
+  if(instance->tail >= instance->dataBuffer + instance->dataBufferSize) {
+    instance->tail = instance->dataBuffer;
   }
-  return false;
-}
-
-bool RingBuffer_GetChar(RingBuffer *ringBuffer, uint8_t *c) {
-  if((ringBuffer) && (c) && (ringBuffer->count)) {
-    *c = *ringBuffer->tail;
-    ringBuffer->count--;
-    ringBuffer->tail++;
-    if(ringBuffer->tail >= ringBuffer->dataBuffer + ringBuffer->dataBufferSize) {
-      ringBuffer->tail = ringBuffer->dataBuffer;
-    }
-    return true;
-  }
-  return false;
+  return true;
 }
