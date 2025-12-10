@@ -16,7 +16,6 @@
 extern "C" {
 #endif
 
-#include <embetech/semantic_version.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -110,16 +109,9 @@ bool RingBuffer_PutChar(RingBuffer *ringBuffer, uint8_t c);
 bool RingBuffer_GetChar(RingBuffer *ringBuffer, uint8_t *c);
 
 /**
- * @brief Get library version as a SemanticVersion structure.
- *
- * @return SemanticVersion value representing the library version.
- */
-SemanticVersion RingBuffer_GetVersion(void);
-
-/**
  * @brief Get library version as a NUL-terminated string.
  *
- * @return Pointer to a read-only, statically-allocated string in semantic version format (e.g., "1.2.3"). Must not be freed or modified.
+ * @return Pointer to a read-only, statically-allocated string in semantic version format (e.g., "1.2.3+extra_info"). Must not be freed or modified.
  */
 char const *RingBuffer_GetVersionString(void);
 

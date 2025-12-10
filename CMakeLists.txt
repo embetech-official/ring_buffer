@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 
-file(READ "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" PROJECT_VERSION)
-project(ring_buffer VERSION  ${PROJECT_VERSION})
+file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt" PROJECT_VERSION)
+project(ring_buffer VERSION ${PROJECT_VERSION})
 
 option(RING_BUFFER_TESTS "Configure unit tests target" ${PROJECT_IS_TOP_LEVEL})
 option(RING_BUFFER_DOC "Configure documentation target" ${PROJECT_IS_TOP_LEVEL})
