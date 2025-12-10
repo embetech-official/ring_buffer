@@ -37,7 +37,7 @@ jobs:
       - uses: lukka/run-cmake@af1be47fd7c933593f687731bc6fdbee024d3ff4 # v10.8
         with:
           configurePreset: ${{ env.preset }}
-          configurePresetAdditionalArgs: '["-DCRC_TESTS=0", "-DCRC_DOC=0", "-DCRC_EXAMPLES=0"]'
+          configurePresetAdditionalArgs: '["-DRING_BUFFER_TESTS=0", "-DRING_BUFFER_DOC=0", "-DRING_BUFFER_EXAMPLES=0"]'
           buildPreset: ${{ env.preset }}-install
 
       - name: Upload library install directory
