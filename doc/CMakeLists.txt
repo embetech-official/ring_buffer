@@ -24,4 +24,20 @@ set(DOXYGEN_ALIASES [[purpose=@par Purpose:]] [[license=@par License:]] [[compil
 )
 set(DOXYGEN_WARN_AS_ERROR YES)
 
-doxygen_add_docs(ring_buffer_doc ALL ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/src/include/embetech COMMENT "Generate documentation")
+# Create local copy of public headers and configure VERSION and LICENSE information
+include(${PROJECT_SOURCE_DIR}/cmake/install_header_licenses.cmake)
+get_target_property(RING_BUFFER_PUBLIC_HEADER_DIR ring_buffer HEADER_DIRS)
+get_target_property(RING_BUFFER_PUBLIC_HEADERS ring_buffer HEADER_SET)
+set(RING_BUFFER_DOC_STAGED_HEADERS_DIR ${CMAKE_CURRENT_BINARY_DIR}/staged_headers)
+foreach (header ${RING_BUFFER_PUBLIC_HEADERS})
+  file(RELATIVE_PATH relative_header ${RING_BUFFER_PUBLIC_HEADER_DIR} ${header})
+  ring_buffer_configure_license_header(${header} ${RING_BUFFER_DOC_STAGED_HEADERS_DIR}/${relative_header})
+endforeach ()
+
+# Strip the staged/build paths so generated docs show clean header names instead of build/gcc*/doc/staged_headers/...
+set(DOXYGEN_STRIP_FROM_PATH ${RING_BUFFER_DOC_STAGED_HEADERS_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+
+doxygen_add_docs(
+  ring_buffer_doc ALL ${CMAKE_CURRENT_SOURCE_DIR} ${RING_BUFFER_DOC_STAGED_HEADERS_DIR}
+  COMMENT "Generate documentation"
+)

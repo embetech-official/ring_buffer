@@ -23,8 +23,18 @@ Diagnostics:
       - hicpp*
       - cppcoreguidelines*
       - readability-identifier-length
+    CheckOptions:
+      readability-implicit-bool-conversion.AllowLogicalOperatorConversion: true
 
-
+---
+If:
+  PathMatch: .*tests/.*
+Diagnostics:
+  ClangTidy:
+    Remove:
+      - cert-err58-cpp
+      - readability-magic-numbers
+      
 ---
 If:                              
   PathExclude: ./.*
