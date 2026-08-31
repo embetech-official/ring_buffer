@@ -60,3 +60,38 @@ jobs:
           name: libring_buffer-${{ matrix.config.architecture }}
           path: install/${{ env.preset }}/**
           if-no-files-found: error
+
+  documentation:
+    name: 📚 Build documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: 📚 Install Doxygen
+        uses: ssciwr/doxygen-install@329d88f5a303066a5bd006db7516b1925b86350e # v2.0.1
+
+      - name: 🛠️ Install CMake
+        uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
+
+      - name: 🔧 Setup GCC toolchain
+        uses: jmacheta/setup-gcc-toolchain@6c712f09af5efb677bc53e4dea195c60b66286e4 # v2.0.1
+        with:
+          toolchain: x86_64-gcc
+          version: latest
+
+      - name: 📚 Generate documentation
+        uses: lukka/run-cmake@5d55ea7949e25f69f0ecb516d8d572297e03a956 # v10.9
+        with:
+          configurePreset: native-gcc
+          configurePresetAdditionalArgs: '["-DRING_BUFFER_TESTS=0", "-DRING_BUFFER_DOC=1", "-DRING_BUFFER_EXAMPLES=0"]'
+          buildPreset: native-gcc-all-release
+
+      - name: ⬆️ Upload documentation
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: libring_buffer-docs
+          path: install/native-gcc/doc/**
+          if-no-files-found: error
