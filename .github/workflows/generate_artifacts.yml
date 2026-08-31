@@ -12,52 +12,39 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { toolchain: gcc, architecture: x86_64-linux-gnu          }
-          - { toolchain: gcc, architecture: x86_64-windows-gnu        }
-          - { toolchain: gcc, architecture: aarch64-linux-gnu         }
-          - { toolchain: gcc, architecture: aarch32-linux-gnu         }
-          - { toolchain: gcc, architecture: thumbv6m-none-eabi        }
-          - { toolchain: gcc, architecture: thumbv7em-none-eabi       }
-          - { toolchain: gcc, architecture: thumbv7em-none-eabihf     }
-          - { toolchain: gcc, architecture: thumbv7m-none-eabi        }
-          - { toolchain: gcc, architecture: thumbv8m.base-none-eabi   }
-          - { toolchain: gcc, architecture: thumbv8m.main-none-eabihf }
+          - { toolchain: gcc, architecture: x86_64-linux-gnu,          setup_toolchain: x86_64-gcc,               setup_vendor: ""    }
+          - { toolchain: gcc, architecture: x86_64-windows-gnu,        setup_toolchain: x86_64-w64-mingw32-gcc,   setup_vendor: ""    }
+          - { toolchain: gcc, architecture: aarch64-linux-gnu,         setup_toolchain: aarch64-none-linux-gnu,   setup_vendor: ""    }
+          - { toolchain: gcc, architecture: aarch32-linux-gnu,         setup_toolchain: arm-none-linux-gnueabihf, setup_vendor: ""    }
+          - { toolchain: gcc, architecture: thumbv6m-none-eabi,        setup_toolchain: arm-none-eabi,            setup_vendor: "arm" }
+          - { toolchain: gcc, architecture: thumbv7em-none-eabi,       setup_toolchain: arm-none-eabi,            setup_vendor: "arm" }
+          - { toolchain: gcc, architecture: thumbv7em-none-eabihf,     setup_toolchain: arm-none-eabi,            setup_vendor: "arm" }
+          - { toolchain: gcc, architecture: thumbv7m-none-eabi,        setup_toolchain: arm-none-eabi,            setup_vendor: "arm" }
+          - { toolchain: gcc, architecture: thumbv8m.base-none-eabi,   setup_toolchain: arm-none-eabi,            setup_vendor: "arm" }
+          - { toolchain: gcc, architecture: thumbv8m.main-none-eabihf, setup_toolchain: arm-none-eabi,            setup_vendor: "arm" }
     env:
       preset: ${{ matrix.config.toolchain }}-${{ matrix.config.architecture }}
     steps:
       - name: 🛠️ Install CMake
         uses: lukka/get-cmake@591817e96fcad43505fb4eae36172462abb3a42e # v4.3.3
 
-      - name: 🔧 Install MinGW toolchain
-        if: matrix.config.architecture == 'x86_64-windows-gnu'
-        run: sudo apt-get install -y gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64
-
-      - name: 🔧 Install arm-none-linux-gnueabihf toolchain
-        if: >
-          matrix.config.architecture == 'aarch64-linux-gnu' ||
-          matrix.config.architecture == 'aarch32-linux-gnu'
-        run: |
-          curl -Lo /tmp/arm-toolchain.tar.xz \
-            "https://armkeil.blob.core.windows.net/developer/files/downloads/gnu/15.2.rel1/binrel/arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-linux-gnueabihf.tar.xz"
-          sudo tar -xf /tmp/arm-toolchain.tar.xz -C /opt
-          echo "/opt/arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-linux-gnueabihf/bin" >> $GITHUB_PATH
-
-      - name: 🔧 Install arm-none-eabi toolchain
-        if: startsWith(matrix.config.architecture, 'thumbv')
-        run: |
-          curl -Lo /tmp/arm-toolchain.tar.xz \
-            "https://armkeil.blob.core.windows.net/developer/files/downloads/gnu/15.2.rel1/binrel/arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-eabi.tar.xz"
-          sudo tar -xf /tmp/arm-toolchain.tar.xz -C /opt
-          echo "/opt/arm-gnu-toolchain-15.2.rel1-x86_64-arm-none-eabi/bin" >> $GITHUB_PATH
+      - name: 🔧 Setup GCC toolchain (${{ matrix.config.setup_toolchain }})
+        uses: jmacheta/setup-gcc-toolchain@6c712f09af5efb677bc53e4dea195c60b66286e4 # v2.0.1
+        with:
+          toolchain: ${{ matrix.config.setup_toolchain }}
+          vendor: ${{ matrix.config.setup_vendor }}
+          version: latest
 
       - name: 📥 Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: 📋 Download multiarch CMake presets
         uses: robinraju/release-downloader@28fc21f50d76778e7023361aa1f863e717d3d56f # v1.13
         with:
           repository: embetech-official/cmake-presets
-          tag: v0.0.1
+          tag: v1.0.0
           fileName: CMakeUserPresets.json
 
       - name: 🏗️ Build and install library
