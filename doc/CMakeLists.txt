@@ -17,7 +17,7 @@ set(DOXYGEN_JAVADOC_AUTOBRIEF YES)
 set(DOXYGEN_VERBATIM_HEADERS NO)
 set(DOXYGEN_HTML_COLORSTYLE DARK)
 set(DOXYGEN_GENERATE_LATEX NO)
-set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/doc)
+set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/doc/ring_buffer/${PROJECT_VERSION})
 set(DOXYGEN_GENERATE_TAGFILE ${DOXYGEN_OUTPUT_DIRECTORY}/html/ring_buffer.tag)
 set(DOXYGEN_ALIASES [[purpose=@par Purpose:]] [[license=@par License:]] [[compiler=@par Compiler:]] [[ hardware=@par Hardware:]]
                     [[comments=@par Comments:]] [[doc=@par Documented using:]]
@@ -37,7 +37,4 @@ endforeach ()
 # Strip the staged/build paths so generated docs show clean header names instead of build/gcc*/doc/staged_headers/...
 set(DOXYGEN_STRIP_FROM_PATH ${RING_BUFFER_DOC_STAGED_HEADERS_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
-doxygen_add_docs(
-  ring_buffer_doc ALL ${CMAKE_CURRENT_SOURCE_DIR} ${RING_BUFFER_DOC_STAGED_HEADERS_DIR}
-  COMMENT "Generate documentation"
-)
+doxygen_add_docs(ring_buffer_doc ${CMAKE_CURRENT_SOURCE_DIR} ${RING_BUFFER_DOC_STAGED_HEADERS_DIR} COMMENT "Generate documentation")

@@ -15,13 +15,7 @@ target_sources(
          include/embetech/ring_buffer_16bit.h
 )
 
-if (PROJECT_IS_TOP_LEVEL)
-  include(${PROJECT_SOURCE_DIR}/cmake/git_utils.cmake)
-  get_git_commit_id(RING_BUFFER_COMMIT_ID REQUIRED LENGTH 8)
-endif ()
+include(${PROJECT_SOURCE_DIR}/cmake/versioning.cmake)
+get_version_string(RING_BUFFER_VERSION_STRING VERSION ${PROJECT_VERSION})
 
-if (NOT RING_BUFFER_COMMIT_ID)
-  set(RING_BUFFER_COMMIT_ID "local") # Fallback for out of tree builds
-endif ()
-
-target_compile_definitions(ring_buffer PRIVATE RING_BUFFER_VERSION="${PROJECT_VERSION}+${RING_BUFFER_COMMIT_ID}")
+target_compile_definitions(ring_buffer PRIVATE RING_BUFFER_VERSION="${RING_BUFFER_VERSION_STRING}")

@@ -1,6 +1,7 @@
 # Ring Buffer
 
-[![CI Tests](https://github.com/embetech-official/ring_buffer/actions/workflows/on_push.yml/badge.svg)](https://github.com/embetech-official/ring_buffer/actions/workflows/on_push.yml)
+[![Weekly](https://github.com/embetech-official/ring_buffer/actions/workflows/weekly.yml/badge.svg)](https://github.com/embetech-official/ring_buffer/actions/workflows/weekly.yml)
+[![Monthly](https://github.com/embetech-official/ring_buffer/actions/workflows/monthly.yml/badge.svg)](https://github.com/embetech-official/ring_buffer/actions/workflows/monthly.yml)
 ![GitHub License](https://img.shields.io/github/license/embetech-official/ring_buffer)
 ![GitHub Release](https://img.shields.io/github/v/release/embetech-official/ring_buffer)
 
