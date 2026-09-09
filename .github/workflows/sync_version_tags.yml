@@ -1,8 +1,18 @@
 name: Sync version tags
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to sync major/minor tags to'
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Tag to sync major/minor tags to'
+        required: true
+        type: string
 
 concurrency:
   group: sync-version-tags
@@ -14,25 +24,12 @@ permissions:
 jobs:
   sync_version_tags:
     name: 🏷️ Sync version tags
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     timeout-minutes: 5
     permissions:
       contents: write
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: 🔎 Resolve latest version tag
-        id: latest
-        run: |
-          latest=$(git tag --list 'v*' --sort=-v:refname | head -n1)
-          echo "tag=$latest" >> "$GITHUB_OUTPUT"
-
       - name: 🔁 Update major/minor version tags
-        if: steps.latest.outputs.tag != ''
         uses: cssnr/update-version-tags-action@dc7077eaec04b8fd61f7b7e6d4830564cfd12382 # v2.1.1
         with:
-          tag: ${{ steps.latest.outputs.tag }}
+          tag: ${{ inputs.tag }}

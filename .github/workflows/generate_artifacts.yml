@@ -48,7 +48,7 @@ jobs:
         uses: ssciwr/doxygen-install@329d88f5a303066a5bd006db7516b1925b86350e # v2.0.1
 
       - name: 🔧 Setup GCC toolchain (${{ matrix.config.toolchain }})
-        uses: jmacheta/setup-gcc-toolchain@6c712f09af5efb677bc53e4dea195c60b66286e4 # v2.0.1
+        uses: jmacheta/setup-gcc-toolchain@7aad7bd3b57f5a236de0ea43b232d19f644fb5c4 # v2.1.1
         with:
           toolchain: ${{ matrix.config.toolchain }}
           vendor: ${{ matrix.config.vendor }}
